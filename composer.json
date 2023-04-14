@@ -1,0 +1,19 @@
+{
+    "name": "maximilianolanz/bienesraices_inicio",
+    "description": "Creando proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Maximiliano Lanz",
+            "email": "maximilianolanz@outlook.com.ar"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\" : "./clases"
+        }
+    }
+}
