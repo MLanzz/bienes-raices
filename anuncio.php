@@ -1,6 +1,7 @@
 <?php
     require "includes/app.php";
-    $db = conectarBD();
+    
+    use App\Propiedad;
 
     $id = $_GET["id"];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -9,11 +10,7 @@
         header("Location: index.php");
     }
 
-    $query = "SELECT * FROM propiedades WHERE id = {$id}";
-
-    $resultado = mysqli_query($db, $query);
-
-    $propiedad = mysqli_fetch_assoc($resultado);
+    $propiedad = Propiedad::findRecord($id);
 
     if (!$propiedad) {
         header("Location: index.php");
@@ -23,33 +20,31 @@
 ?>
 
 <main class="contenedor seccion contenido-centrado">
-    <h1><?php echo $propiedad["titulo"]; ?></h1>
+    <h1><?php echo $propiedad->titulo; ?></h1>
 
-    <img loading="lazy" width="200" height="300" src="/imagenes/<?php echo $propiedad["imagen"]; ?>" alt="imagen destacada">
+    <img loading="lazy" width="200" height="300" src="/imagenes/<?php echo $propiedad->imagen; ?>" alt="imagen destacada">
 
 
     <div class="resumen-propiedad">
-        <p class="precio">$<?php echo $propiedad["precio"]; ?></p>
+        <p class="precio">$<?php echo $propiedad->precio; ?></p>
         <ul class="iconos-caracteristicas">
             <li>
                 <img src="build/img/icono_wc.svg" alt="" loading="lazy">
-                <p><?php echo $propiedad["wc"]; ?></p>
+                <p><?php echo $propiedad->wc; ?></p>
             </li>
             <li>
                 <img src="build/img/icono_estacionamiento.svg" alt="" loading="lazy">
-                <p><?php echo $propiedad["estacionamiento"]; ?></p>
+                <p><?php echo $propiedad->estacionamiento; ?></p>
             </li>
             <li>
                 <img src="build/img/icono_dormitorio.svg" alt="" loading="lazy">
-                <p><?php echo $propiedad["habitaciones"]; ?></p>
+                <p><?php echo $propiedad->habitaciones; ?></p>
             </li>
         </ul>
-        <p><?php echo $propiedad["descripcion"]; ?></p>
+        <p><?php echo $propiedad->descripcion; ?></p>
     </div>
 </main>
 
 <?php
-    mysqli_close($db);
-
     incluirTemplate("footer");
 ?>
